@@ -73,7 +73,7 @@ abstract class TestCase extends OrchestraTestCase
     }
 
     /**
-     * Compile Survey Monkey signature
+     * Compile Survey Monkey signature.
      *
      * @param  array       $payload
      * @param  string      $apiKey

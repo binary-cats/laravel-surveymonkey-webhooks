@@ -44,7 +44,7 @@ class ProcessSurveyMonkeyWebhookJob extends ProcessWebhookJob
     }
 
     /**
-     * Calculate the name of the Job class
+     * Calculate the name of the Job class.
      *
      * @param  string $eventType
      * @return string

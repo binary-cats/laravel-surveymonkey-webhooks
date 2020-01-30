@@ -2,7 +2,6 @@
 
 namespace BinaryCats\SurveyMonkeyWebhooks\Tests;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Spatie\WebhookClient\Models\WebhookCall;
