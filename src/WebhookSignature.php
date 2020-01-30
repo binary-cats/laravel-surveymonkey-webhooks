@@ -57,7 +57,7 @@ class WebhookSignature
             return true;
         }
 
-        throw new SignatureVerificationException("Signature Verification Failed", 500);
+        throw new SignatureVerificationException('Signature Verification Failed', 500);
     }
 
     /**
