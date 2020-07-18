@@ -2,6 +2,10 @@
 
 [SurveyMonkey.com](https://surveymonkey.com) is an online survey development cloud-based software as a service company. SurveyMonkey also can notify your application of collector and response events using webhooks. This package can help you handle those webhooks. Out of the box it will verify SurveyMonkey signature of all incoming requests. All valid calls will be logged to the database. You can easily define jobs or events that should be dispatched when specific events hit your app.
 
+<p align="center">
+    <img src="https://repository-images.githubusercontent.com/237140847/c77ea380-42e9-11ea-86b6-c4037de3a3bd" width="400">
+</p>
+
 This package will not handle what should be done after the webhook request has been validated and the right job or event is called. You should still code up any work yourself.
 
 Before using this package we highly recommend reading [the entire documentation on webhooks over at surveymonkey.com](https://developer.surveymonkey.com/api/v3/#webhooks).
