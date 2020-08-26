@@ -44,6 +44,8 @@ class SurveyMonkeySignatureValidator implements SignatureValidator
         try {
             Webhook::constructEvent($request->all(), $signatureArray, $secret);
         } catch (Exception $exception) {
+            report ($exception);
+
             return false;
         }
 
