@@ -24,8 +24,8 @@ class WebhookSignature
     /**
      * Create new Signature.
      *
-     * @param array  $signatureArray
-     * @param string $secret
+     * @param  array  $signatureArray
+     * @param  string  $secret
      */
     public function __construct(array $signatureArray, string $secret)
     {
@@ -37,7 +37,7 @@ class WebhookSignature
      * Statis accessor into the class constructor.
      *
      * @param  array  $signatureArray
-     * @param  string $secret
+     * @param  string  $secret
      * @return new static
      */
     public static function make($signatureArray, string $secret)
@@ -49,6 +49,7 @@ class WebhookSignature
      * True if the signature is valid.
      *
      * @return bool
+     *
      * @throws BinaryCats\SurveyMonkeyWebhooks\Exceptions\SignatureVerificationException when validation fails
      */
     public function verify(): bool
@@ -80,7 +81,7 @@ class WebhookSignature
     /**
      * Magically access items from signature array.
      *
-     * @param  string $attribute
+     * @param  string  $attribute
      * @return mixed
      */
     public function __get($attribute)

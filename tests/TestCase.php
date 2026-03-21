@@ -3,7 +3,6 @@
 namespace BinaryCats\SurveyMonkeyWebhooks\Tests;
 
 use BinaryCats\SurveyMonkeyWebhooks\SurveyMonkeyWebhooksServiceProvider;
-use CreateWebhookCallsTable;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Exceptions\Handler;
@@ -21,15 +20,15 @@ abstract class TestCase extends OrchestraTestCase
     /**
      * Set up the environment.
      *
-     * @param \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      */
     protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
         $app['config']->set('surveymonkey-webhooks.signing_secret', 'secret');
     }
@@ -42,7 +41,7 @@ abstract class TestCase extends OrchestraTestCase
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      */
     protected function getPackageProviders($app): array
     {
@@ -53,7 +52,8 @@ abstract class TestCase extends OrchestraTestCase
 
     protected function disableExceptionHandling(): void
     {
-        $this->app->instance(ExceptionHandler::class, new class extends Handler {
+        $this->app->instance(ExceptionHandler::class, new class extends Handler
+        {
             public function __construct()
             {
             }
@@ -72,9 +72,9 @@ abstract class TestCase extends OrchestraTestCase
     /**
      * Compile Survey Monkey signature.
      *
-     * @param  array       $payload
-     * @param  string      $apiKey
-     * @param  string|null $configKey
+     * @param  array  $payload
+     * @param  string  $apiKey
+     * @param  string|null  $configKey
      * @return string
      */
     protected function determineSurveyMonkeySignature(array $payload, $apiKey, ?string $configKey = null): string
