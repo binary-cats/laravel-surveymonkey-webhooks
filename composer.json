@@ -19,13 +19,12 @@
         }
     ],
     "require": {
-        "php": "^7.2",
-        "illuminate/support": "~5.8.0|^6.0|^7.0",
-        "spatie/laravel-webhook-client": "^2.0"
+        "php": "^8.2",
+        "illuminate/support": "^11.0|^12.0|^13.0",
+        "spatie/laravel-webhook-client": "^3.0"
     },
     "require-dev": {
-        "orchestra/testbench": "~3.8.0|^4.0|^5.0",
-        "phpunit/phpunit": "^8.2|^9.0"
+        "orchestra/testbench": "^9.0|^10.0|^11.0"
     },
     "autoload": {
         "psr-4": {
@@ -39,18 +38,11 @@
     },
     "suggest": {
         "binary-cats/laravel-lob-webhooks": "Handle Lob.com webhooks in your Laravel application",
-        "binary-cats/laravel-mailgun-webhooks": "Handle Mailgun webhooks in your Laravel application"
+        "binary-cats/laravel-mailgun-webhooks": "Handle Mailgun webhooks in your Laravel application",
+        "binary-cats/laravel-zoom-webhooks": "Handle Zoom webhooks in your Laravel application"
     },
     "scripts": {
-        "test": "vendor/bin/phpunit --color=always",
-        "check": [
-            "php-cs-fixer fix --ansi --dry-run --diff",
-            "phpcs --report-width=200 --report-summary  --report-full src/ tests/ --standard=PSR2 -n",
-            "phpmd src/,tests/ text ./phpmd.xml.dist"
-        ],
-        "fix": [
-            "php-cs-fixer fix --ansi"
-        ]
+        "test": "vendor/bin/phpunit"
     },
     "config": {
         "sort-packages": true

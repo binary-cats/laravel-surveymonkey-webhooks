@@ -3,7 +3,6 @@
 namespace BinaryCats\SurveyMonkeyWebhooks\Tests;
 
 use BinaryCats\SurveyMonkeyWebhooks\SurveyMonkeyWebhooksServiceProvider;
-use CreateWebhookCallsTable;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Exceptions\Handler;
@@ -11,7 +10,7 @@ use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 abstract class TestCase extends OrchestraTestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -21,42 +20,40 @@ abstract class TestCase extends OrchestraTestCase
     /**
      * Set up the environment.
      *
-     * @param \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
-
-        config(['surveymonkey-webhooks.signing_secret' => 'secret']);
+        $app['config']->set('surveymonkey-webhooks.signing_secret', 'secret');
     }
 
-    protected function setUpDatabase()
+    protected function setUpDatabase(): void
     {
-        include_once __DIR__.'/../vendor/spatie/laravel-webhook-client/database/migrations/create_webhook_calls_table.php.stub';
+        $migration = include __DIR__.'/../vendor/spatie/laravel-webhook-client/database/migrations/create_webhook_calls_table.php.stub';
 
-        (new CreateWebhookCallsTable())->up();
+        $migration->up();
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
-     *
-     * @return array
+     * @param  \Illuminate\Foundation\Application  $app
      */
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             SurveyMonkeyWebhooksServiceProvider::class,
         ];
     }
 
-    protected function disableExceptionHandling()
+    protected function disableExceptionHandling(): void
     {
-        $this->app->instance(ExceptionHandler::class, new class extends Handler {
+        $this->app->instance(ExceptionHandler::class, new class extends Handler
+        {
             public function __construct()
             {
             }
@@ -75,12 +72,12 @@ abstract class TestCase extends OrchestraTestCase
     /**
      * Compile Survey Monkey signature.
      *
-     * @param  array       $payload
-     * @param  string      $apiKey
-     * @param  string|null $configKey
+     * @param  array  $payload
+     * @param  string  $apiKey
+     * @param  string|null  $configKey
      * @return string
      */
-    protected function determineSurveyMonkeySignature(array $payload, $apiKey, string $configKey = null): string
+    protected function determineSurveyMonkeySignature(array $payload, $apiKey, ?string $configKey = null): string
     {
         $secret = ($configKey) ?
             config("surveymonkey-webhooks.signing_secret_{$configKey}") :

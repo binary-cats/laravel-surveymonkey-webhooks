@@ -4,7 +4,7 @@ namespace BinaryCats\SurveyMonkeyWebhooks;
 
 use BinaryCats\SurveyMonkeyWebhooks\Exceptions\WebhookFailed;
 use Illuminate\Support\Arr;
-use Spatie\WebhookClient\ProcessWebhookJob;
+use Spatie\WebhookClient\Jobs\ProcessWebhookJob;
 
 class ProcessSurveyMonkeyWebhookJob extends ProcessWebhookJob
 {
@@ -46,7 +46,7 @@ class ProcessSurveyMonkeyWebhookJob extends ProcessWebhookJob
     /**
      * Calculate the name of the Job class.
      *
-     * @param  string $eventType
+     * @param  string  $eventType
      * @return string
      */
     protected function determineJobClass(string $eventType): string

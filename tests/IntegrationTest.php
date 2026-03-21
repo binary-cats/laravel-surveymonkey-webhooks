@@ -4,25 +4,27 @@ namespace BinaryCats\SurveyMonkeyWebhooks\Tests;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\WebhookClient\Models\WebhookCall;
 
 class IntegrationTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
         Event::fake();
 
-        Route::surveyMonkeyWebhooks('webwooks/survey-monkey');
-        Route::surveyMonkeyWebhooks('webwooks/survey-monkey/{configKey}');
+        Route::surveyMonkeyWebhooks('webhooks/survey-monkey');
+        Route::surveyMonkeyWebhooks('webhooks/survey-monkey/{configKey}');
 
         config(['surveymonkey-webhooks.jobs' => ['my_type' => DummyJob::class]]);
+
         cache()->clear();
     }
 
-    /** @test */
-    public function it_can_handle_a_valid_request()
+    #[Test]
+    public function it_can_handle_a_valid_request(): void
     {
         $payload = [
             'event_type' => 'my.type',
@@ -34,7 +36,7 @@ class IntegrationTest extends TestCase
         ];
 
         $this
-            ->postJson('webwooks/survey-monkey', $payload, $headers)
+            ->postJson('webhooks/survey-monkey', $payload, $headers)
             ->assertSuccessful();
 
         $this->assertCount(1, WebhookCall::get());
@@ -55,8 +57,8 @@ class IntegrationTest extends TestCase
         $this->assertEquals($webhookCall->id, cache('dummyjob')->id);
     }
 
-    /** @test */
-    public function a_request_with_an_invalid_signature_wont_be_logged()
+    #[Test]
+    public function a_request_with_an_invalid_signature_wont_be_logged(): void
     {
         $payload = [
             'event_type' => 'my.type',
@@ -68,7 +70,7 @@ class IntegrationTest extends TestCase
         ];
 
         $this
-            ->postJson('webwooks/survey-monkey', $payload, $headers)
+            ->postJson('webhooks/survey-monkey', $payload, $headers)
             ->assertStatus(500);
 
         $this->assertCount(0, WebhookCall::get());
@@ -78,8 +80,8 @@ class IntegrationTest extends TestCase
         $this->assertNull(cache('dummyjob'));
     }
 
-    /** @test */
-    public function a_request_with_an_invalid_payload_will_be_logged_but_events_and_jobs_will_not_be_dispatched()
+    #[Test]
+    public function a_request_with_an_invalid_payload_will_be_logged_but_events_and_jobs_will_not_be_dispatched(): void
     {
         $payload = ['invalid_payload'];
 
@@ -89,7 +91,7 @@ class IntegrationTest extends TestCase
         ];
 
         $this
-            ->postJson('webwooks/survey-monkey', $payload, $headers)
+            ->postJson('webhooks/survey-monkey', $payload, $headers)
             ->assertStatus(400);
 
         $this->assertCount(1, WebhookCall::get());
@@ -107,8 +109,8 @@ class IntegrationTest extends TestCase
         $this->assertNull(cache('dummyjob'));
     }
 
-    /** @test * */
-    public function a_request_with_a_config_key_will_use_the_correct_signing_secret()
+    #[Test]
+    public function a_request_with_a_config_key_will_use_the_correct_signing_secret(): void
     {
         config()->set('surveymonkey-webhooks.signing_secret', 'secret1');
         config()->set('surveymonkey-webhooks.signing_secret_somekey', 'secret2');
@@ -123,7 +125,7 @@ class IntegrationTest extends TestCase
         ];
 
         $this
-            ->postJson('webwooks/survey-monkey/somekey', $payload, $headers)
+            ->postJson('webhooks/survey-monkey/somekey', $payload, $headers)
             ->assertSuccessful();
     }
 }
