@@ -26,16 +26,15 @@ class SurveyMonkeySignatureValidator implements SignatureValidator
     /**
      * True if the signature has been valiates.
      *
-     * @param  Illuminate\Http\Request       $request
-     * @param  Spatie\WebhookClient\WebhookConfig $config
-     *
+     * @param  Illuminate\Http\Request  $request
+     * @param  Spatie\WebhookClient\WebhookConfig  $config
      * @return bool
      */
     public function isValid(Request $request, WebhookConfig $config): bool
     {
         $signatureArray = [
-            'payload'   => $request->input(),
-            'apiKey'    => $request->header('sm-apikey'),
+            'payload' => $request->input(),
+            'apiKey' => $request->header('sm-apikey'),
             'signature' => $request->header('sm-signature'),
         ];
 

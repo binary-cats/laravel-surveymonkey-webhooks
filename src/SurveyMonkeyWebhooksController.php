@@ -12,11 +12,11 @@ class SurveyMonkeyWebhooksController
     /**
      * Invoke controller method.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  string|null $configKey
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string|null  $configKey
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request, string $configKey = null)
+    public function __invoke(Request $request, ?string $configKey = null)
     {
         $webhookConfig = new WebhookConfig([
             'name' => 'survey-monkey',

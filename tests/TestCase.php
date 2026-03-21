@@ -21,15 +21,15 @@ abstract class TestCase extends OrchestraTestCase
     /**
      * Set up the environment.
      *
-     * @param \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      */
     protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
 
         config(['surveymonkey-webhooks.signing_secret' => 'secret']);
@@ -43,8 +43,7 @@ abstract class TestCase extends OrchestraTestCase
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
-     *
+     * @param  \Illuminate\Foundation\Application  $app
      * @return array
      */
     protected function getPackageProviders($app)
@@ -56,7 +55,8 @@ abstract class TestCase extends OrchestraTestCase
 
     protected function disableExceptionHandling()
     {
-        $this->app->instance(ExceptionHandler::class, new class extends Handler {
+        $this->app->instance(ExceptionHandler::class, new class extends Handler
+        {
             public function __construct()
             {
             }
@@ -75,12 +75,12 @@ abstract class TestCase extends OrchestraTestCase
     /**
      * Compile Survey Monkey signature.
      *
-     * @param  array       $payload
-     * @param  string      $apiKey
-     * @param  string|null $configKey
+     * @param  array  $payload
+     * @param  string  $apiKey
+     * @param  string|null  $configKey
      * @return string
      */
-    protected function determineSurveyMonkeySignature(array $payload, $apiKey, string $configKey = null): string
+    protected function determineSurveyMonkeySignature(array $payload, $apiKey, ?string $configKey = null): string
     {
         $secret = ($configKey) ?
             config("surveymonkey-webhooks.signing_secret_{$configKey}") :
