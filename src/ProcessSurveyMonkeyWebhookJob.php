@@ -4,7 +4,7 @@ namespace BinaryCats\SurveyMonkeyWebhooks;
 
 use BinaryCats\SurveyMonkeyWebhooks\Exceptions\WebhookFailed;
 use Illuminate\Support\Arr;
-use Spatie\WebhookClient\ProcessWebhookJob;
+use Spatie\WebhookClient\Jobs\ProcessWebhookJob;
 
 class ProcessSurveyMonkeyWebhookJob extends ProcessWebhookJob
 {

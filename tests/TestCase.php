@@ -11,7 +11,7 @@ use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 abstract class TestCase extends OrchestraTestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -23,7 +23,7 @@ abstract class TestCase extends OrchestraTestCase
      *
      * @param \Illuminate\Foundation\Application $app
      */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
@@ -31,30 +31,27 @@ abstract class TestCase extends OrchestraTestCase
             'database' => ':memory:',
             'prefix'   => '',
         ]);
-
-        config(['surveymonkey-webhooks.signing_secret' => 'secret']);
+        $app['config']->set('surveymonkey-webhooks.signing_secret', 'secret');
     }
 
-    protected function setUpDatabase()
+    protected function setUpDatabase(): void
     {
-        include_once __DIR__.'/../vendor/spatie/laravel-webhook-client/database/migrations/create_webhook_calls_table.php.stub';
+        $migration = include __DIR__.'/../vendor/spatie/laravel-webhook-client/database/migrations/create_webhook_calls_table.php.stub';
 
-        (new CreateWebhookCallsTable())->up();
+        $migration->up();
     }
 
     /**
      * @param \Illuminate\Foundation\Application $app
-     *
-     * @return array
      */
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             SurveyMonkeyWebhooksServiceProvider::class,
         ];
     }
 
-    protected function disableExceptionHandling()
+    protected function disableExceptionHandling(): void
     {
         $this->app->instance(ExceptionHandler::class, new class extends Handler {
             public function __construct()
@@ -80,7 +77,7 @@ abstract class TestCase extends OrchestraTestCase
      * @param  string|null $configKey
      * @return string
      */
-    protected function determineSurveyMonkeySignature(array $payload, $apiKey, string $configKey = null): string
+    protected function determineSurveyMonkeySignature(array $payload, $apiKey, ?string $configKey = null): string
     {
         $secret = ($configKey) ?
             config("surveymonkey-webhooks.signing_secret_{$configKey}") :

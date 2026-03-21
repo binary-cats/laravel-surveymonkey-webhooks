@@ -1,5 +1,9 @@
 # Handle Survey Monkey Webhooks in a Laravel application
 
+![https://github.com/binary-cats/laravel-surveymonkey-webhooks/actions](https://github.com/binary-cats/laravel-surveymonkey-webhooks/workflows/run-tests/badge.svg)
+![https://github.styleci.io/repos/230519748](https://github.styleci.io/repos/230519748/shield)
+![https://scrutinizer-ci.com/g/binary-cats/laravel-mailgun-webhooks/](https://scrutinizer-ci.com/g/binary-cats/laravel-mailgun-webhooks/badges/quality-score.png?b=master)
+
 [SurveyMonkey.com](https://surveymonkey.com) is an online survey development cloud-based software as a service company. SurveyMonkey also can notify your application of collector and response events using webhooks. This package can help you handle those webhooks. Out of the box it will verify SurveyMonkey signature of all incoming requests. All valid calls will be logged to the database. You can easily define jobs or events that should be dispatched when specific events hit your app.
 
 <p align="center">
@@ -301,7 +305,7 @@ Big shout-out to [Spatie](https://spatie.be/) for their work, which is a huge in
 
 ## Support us
 
-Binary Cats is a webdesign agency based in Illinois, US.
+[Binary Cats](htpps://binarycats.dev) is a webdesign agency based in Illinois, US.
 
 ## License
 
