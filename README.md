@@ -16,7 +16,7 @@ Before using this package we highly recommend reading [the entire documentation 
 
 This package is an almost line-to-line adapted copy of absolutely amazing [spatie/laravel-stripe-webhooks](https://github.com/spatie/laravel-stripe-webhooks). Give them your love!
 
-Lastly, this package assumes you are working with Survey Monkey API version 3.
+Lastly, this package assumes you are working with **Survey Monkey API version 3**
 
 ## Installation
 

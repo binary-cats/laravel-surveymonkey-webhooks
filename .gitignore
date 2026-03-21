@@ -1,5 +1,6 @@
+.phpunit.cache
 build
+coverage/
 composer.lock
 docs
 vendor
-coverage.clover
